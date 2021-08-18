@@ -7,14 +7,15 @@ using Web.Models;
 
 namespace Web.Controllers
 {
-    public class ProveedorController : Controller
+    public class RolesController : Controller
     {
-        // GET: Proveedor
+        //Algo
+        // GET: Roles
         public ActionResult Index()
         {
             using (var db = new inventario2021Entities())
             {
-                return View(db.proveedor.ToList());
+                return View(db.roles.ToList());
             }
         }
 
@@ -23,10 +24,12 @@ namespace Web.Controllers
             return View();
         }
 
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public ActionResult Create(proveedor proveedor)
+        public ActionResult Create(roles roles)
         {
             if (!ModelState.IsValid)
                 return View();
@@ -34,7 +37,7 @@ namespace Web.Controllers
             {
                 using (var db = new inventario2021Entities())
                 {
-                    db.proveedor.Add(proveedor);
+                    db.roles.Add(roles);
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
@@ -50,8 +53,8 @@ namespace Web.Controllers
         {
             using (var db = new inventario2021Entities())
             {
-                var findProveedor = db.proveedor.Find(id);
-                return View(findProveedor);
+                var findRoles = db.roles.Find(id);
+                return View(findRoles);
             }
         }
 
@@ -61,8 +64,8 @@ namespace Web.Controllers
             {
                 using (var db = new inventario2021Entities())
                 {
-                    var findProveedor = db.proveedor.Find(id);
-                    db.proveedor.Remove(findProveedor);
+                    var findRoles = db.roles.Find(id);
+                    db.roles.Remove(findRoles);
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
@@ -80,8 +83,8 @@ namespace Web.Controllers
             {
                 using (var db = new inventario2021Entities())
                 {
-                    proveedor findProveedor  = db.proveedor.Where(a => a.id == id).FirstOrDefault();
-                    return View(findProveedor);
+                    roles findRoles = db.roles.Where(a => a.id == id).FirstOrDefault();
+                    return View(findRoles);
                 }
             }
             catch (Exception ex)
@@ -94,17 +97,15 @@ namespace Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public ActionResult Edit(proveedor editProveedor)
+        public ActionResult Edit(roles editRoles)
         {
             try
             {
                 using (var db = new inventario2021Entities())
                 {
-                    proveedor proveedor = db.proveedor.Find(editProveedor.id);
-                    proveedor.nombre = editProveedor.nombre;
-                    proveedor.direccion = editProveedor.direccion;
-                    proveedor.telefono = editProveedor.telefono;
-                    proveedor.nombre_contacto = editProveedor.nombre_contacto;
+                    roles roles = db.roles.Find(editRoles.id);
+                    roles.descripcion = editRoles.descripcion;
+
 
                     db.SaveChanges();
                     return RedirectToAction("index");
